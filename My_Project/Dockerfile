@@ -64,4 +64,4 @@ COPY . .
 EXPOSE 5000
 
 # Run migrations and start the app
-CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "5000", "My_Project:create_app"]
+CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "5000", "restaurant_app:create_app"]
