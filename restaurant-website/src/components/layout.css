@@ -1,4 +1,4 @@
-/* .layout {
+.layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -7,40 +7,4 @@
 
 main {
   flex: 1;
-} */
-
-/* Basic styles */
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0; /* Removed negative margin */
-}
-
-main {
-  flex: 1;
-}
-
-/* Media queries for responsiveness */
-
-/* Styles for tablets and larger screens */
-@media (min-width: 768px) {
-  .layout {
-    /* For tablets and larger screens, you can add padding or adjust layout if needed */
-    padding: 0 20px; /* Add padding for better spacing on larger screens */
-  }
-}
-
-/* Styles for mobile devices */
-@media (max-width: 767px) {
-  .layout {
-    /* Ensure no horizontal overflow on mobile */
-    padding: 10px; /* Add padding for better spacing on mobile screens */
-    margin: 0; /* Ensure no negative margins */
-  }
-
-  main {
-    /* Ensure main content adapts to mobile screens */
-    padding: 0; /* Remove any extra padding if needed */
-  }
 }
