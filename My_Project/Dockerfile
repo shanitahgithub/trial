@@ -44,29 +44,6 @@
 # CMD ["gunicorn", "-b", "0.0.0.0:5000", "restaurant_app:create_app"]
 
 
-# # Use the official Python images
-# FROM python:3.12-slim
-
-# # Set environment variables
-# ENV PYTHONDONTWRITEBYTECODE 1
-# ENV PYTHONUNBUFFERED 1
-
-# # Set the working directory
-# WORKDIR /My_Project
-
-# # Install dependencies
-# COPY requirements.txt .
-# RUN pip install -r requirements.txt
-
-# # Copy the application code
-# COPY . .
-
-# EXPOSE 5000
-
-# # Run migrations and start the app
-# CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "5000", "restaurant_app:create_app"]
-
-
 # Use the official Python images
 FROM python:3.12-slim
 
@@ -84,11 +61,7 @@ RUN pip install -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Set the Flask app environment variable
-ENV FLASK_APP=restaurant_app:create_app
-
-# Expose the port
 EXPOSE 5000
 
-# Run the application
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=5000"]
+# Run migrations and start the app
+CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "5000", "restaurant_app:create_app"]
