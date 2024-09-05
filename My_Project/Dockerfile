@@ -41,7 +41,7 @@ COPY . .
 EXPOSE 5000
 
 # Run migrations and start the app
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "restaurant_app:create_app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "My_Project.restaurant_app:create_app"]
 
 
 # # Use the official Python images
