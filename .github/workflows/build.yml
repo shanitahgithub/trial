@@ -27,7 +27,7 @@ jobs:
           context: ./My_Project
           file: ./My_Project/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/witu:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
       - name: Log out of Docker Hub
         run: docker logout
