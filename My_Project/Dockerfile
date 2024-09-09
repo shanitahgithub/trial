@@ -31,6 +31,11 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory
 WORKDIR /app
 
+# # Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt
