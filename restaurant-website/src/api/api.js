@@ -112,7 +112,7 @@ export const fetchMenuItems = async (category) => {
 // Use environment variable for the backend URL
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Register a new user
+// Register a new users
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(`${API}/api/v2/users/register`, userData);
