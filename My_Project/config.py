@@ -1,8 +1,9 @@
 
-# My config app
+# My config appp
 class Config:
-    # SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:@localhost/project'
+    
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://sql8730370:PH6J8NjLYv@sql8.freesqldatabase.com:3306/sql8730370'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     
 
     JWT_SECRET_KEY='customers'
