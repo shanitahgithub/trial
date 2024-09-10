@@ -1,6 +1,7 @@
 // import React, { useState, useEffect } from "react";
 // import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 // import "./menuitem.css"; // Make sure to import the CSS file
+// import BreakfastCombos from "../components/breakfast"; // Import the BreakfastCombos component
 
 // const itemsData = {
 //   breakfast: [
@@ -31,7 +32,7 @@
 //   };
 
 //   useEffect(() => {
-//     fetch(`http://127.0.0.1:5000/api/v2/item_bp/${mymenu}`, {
+//     fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v2/item_bp/${mymenu}`, {
 //       method: "GET",
 //     })
 //       .then((response) => response.json())
@@ -44,6 +45,8 @@
 
 //   return (
 //     <div className="category-container">
+//       {category === "breakfast" && <BreakfastCombos />}{" "}
+//       {/* Render the BreakfastCombos component for the breakfast category */}
 //       {menuItems.length > 0
 //         ? menuItems.map((item) => (
 //             <div key={item.id} className="category-item">
@@ -66,24 +69,11 @@
 
 // export default Category;
 
-// src/components/Category.js
-
-// src/components/Category.js
-
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import "./menuitem.css"; // Make sure to import the CSS file
 import BreakfastCombos from "../components/breakfast"; // Import the BreakfastCombos component
 
-const itemsData = {
-  breakfast: [
-    // ...your items
-  ],
-  lunch: [
-    // ...your items
-  ],
-  // ...other categories
-};
+import { useState, useEffect } from "react";
+import { useSearchParams, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Category = () => {
   const [searchParams] = useSearchParams();
@@ -91,11 +81,9 @@ const Category = () => {
   const mymenu = searchParams.get("menu");
   const { category } = useParams();
   const navigate = useNavigate();
-  const items = itemsData[category] || [];
 
   const handleOrder = (itemId) => {
     const user = localStorage.getItem("user");
-    // alert(user);
     if (!user) {
       navigate("/register");
     } else {
@@ -104,15 +92,19 @@ const Category = () => {
   };
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v2/item_bp/${mymenu}`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setMenuItems(Array.isArray(data) ? data : []);
-        console.log(data);
-      })
-      .catch((error) => console.log(error));
+    const fetchMenuItems = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v2/item_bp/${mymenu}`
+        );
+        setMenuItems(Array.isArray(response.data) ? response.data : []);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMenuItems();
   }, [mymenu]);
 
   return (

@@ -6,8 +6,27 @@ const api = axios.create({
 
 export const fetchMenu = () => api.get("/allmenu");
 
+// const contact_api = axios.create({
+//   baseURL: "http://127.0.0.1:5000/api/v2/contact_bp", // Update this to match your Flask contact_bp endpoint URL
+// });
+
+// export const sendContactMessage = async (formData) => {
+//   try {
+//     const response = await contact_api.post(`/send`, {
+//       username: formData.name,
+//       email: formData.email,
+//       subject: formData.subject,
+//       message: formData.message,
+//       // user_id: 1,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
 const contact_api = axios.create({
-  baseURL: "http://127.0.0.1:5000/api/v2/contact_bp", // Update this to match your Flask contact_bp endpoint URL
+  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api/v2/contact_bp`, // Use environment variable for base URL
 });
 
 export const sendContactMessage = async (formData) => {
@@ -17,14 +36,13 @@ export const sendContactMessage = async (formData) => {
       email: formData.email,
       subject: formData.subject,
       message: formData.message,
-      // user_id: 1,
+      // user_id: 1, // Uncomment and set if needed
     });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
-
 // api.js
 
 const API_URL = "http://localhost:5000/api/v2/review_bp";
