@@ -85,7 +85,7 @@ import axios from "axios";
 
 // Use environment variable for the backend URL
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL + "/api/v2", // Replace with your hosted backend URL
+  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api/v2`, // Replace with your hosted backend URL
   headers: {
     "Content-Type": "application/json",
   },
