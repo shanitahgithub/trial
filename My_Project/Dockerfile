@@ -40,7 +40,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy the application code
+# Copy the application codee
 COPY . .
 
 EXPOSE 5000
