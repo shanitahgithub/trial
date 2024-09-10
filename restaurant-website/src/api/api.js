@@ -97,7 +97,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 // Register a new user
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post(`${API}/register`, userData);
+    const response = await axios.post(`${API}/api/v2/users/register`, userData);
     return response.data;
   } catch (error) {
     console.error("Registration error:", error); // Log the error for debugging
@@ -110,7 +110,7 @@ export const registerUser = async (userData) => {
 // Login user
 export const loginUser = async (formData) => {
   try {
-    const response = await axios.post(`${API}/login`, formData);
+    const response = await axios.post(`${API}/api/v2/users/login`, formData);
     return response; // Return the entire response object
   } catch (error) {
     console.error("Login error:", error); // Log the error for debugging
