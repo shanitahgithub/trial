@@ -6,27 +6,6 @@ const api = axios.create({
 
 export const fetchMenu = () => api.get("/allmenu");
 
-// const api = axios.create({
-//   baseURL: " http://127.0.0.1:5000/api/v2/menus", // Update this to match your Flask backend URL
-// });
-
-// export const fetchMenu = () => api.get("/allmenu");
-
-// Add more API calls as needed
-
-// src/api/api.js
-
-// export const fetchCategories = async () => {
-//   try {
-//     const response = await axios.get(
-//       "http://127.0.0.1:5000/api/v2/menus/categories"
-//     );
-//     return response;
-//   } catch (error) {
-//     console.error("Error fetching menu categories:", error);
-//     throw error;
-//   }
-// };
 const contact_api = axios.create({
   baseURL: "http://127.0.0.1:5000/api/v2/contact_bp", // Update this to match your Flask contact_bp endpoint URL
 });
@@ -85,30 +64,35 @@ export const fetchMenuItems = async (category) => {
   }
 };
 
-// const axiosInstance = axios.create({
-//   baseURL: "/api/v2/users", // Update with your actual backend URL if needed
-//   headers: {
-//     "Content-Type": "application/json",
-//     // Add any additional headers here if required
-//   },
-// });
+// Register
 
-// export const loginUser = async (userData) => {
+// const API = "http://127.0.0.1:5000/api/v2/users";
+
+// // Register a new user
+// export const registerUser = async (userData) => {
 //   try {
-//     const response = await axiosInstance.post("/login", userData);
+//     const response = await axios.post(`${API}/register`, userData);
 //     return response.data;
 //   } catch (error) {
-//     throw error.response.data;
+//     console.error(error); // Log the error to console for debugging
+//     throw error.response?.data?.error || "An error occurred";
 //   }
 // };
 
-// api.js
+// const A = "http://127.0.0.1:5000/api/v2/users";
 
-// src/api.js
+// // Login user
+// export const loginUser = async (formData) => {
+//   try {
+//     const response = await axios.post(`${A}/login`, formData);
+//     return response; // Return the entire response object
+//   } catch (error) {
+//     throw error; // Throw the entire error object for better debugging
+//   }
+// };
 
-// Create an Axios instance with a base URL
-
-const API = "http://127.0.0.1:5000/api/v2/users";
+// Use environment variable for the backend URL
+const API = process.env.REACT_APP_BACKEND_URL;
 
 // Register a new user
 export const registerUser = async (userData) => {
@@ -116,41 +100,25 @@ export const registerUser = async (userData) => {
     const response = await axios.post(`${API}/register`, userData);
     return response.data;
   } catch (error) {
-    console.error(error); // Log the error to console for debugging
-    throw error.response?.data?.error || "An error occurred";
+    console.error("Registration error:", error); // Log the error for debugging
+    throw (
+      error.response?.data?.error || "An error occurred during registration"
+    );
   }
 };
-
-const A = "http://127.0.0.1:5000/api/v2/users";
 
 // Login user
 export const loginUser = async (formData) => {
   try {
-    const response = await axios.post(`${A}/login`, formData);
+    const response = await axios.post(`${API}/login`, formData);
     return response; // Return the entire response object
   } catch (error) {
-    throw error; // Throw the entire error object for better debugging
+    console.error("Login error:", error); // Log the error for debugging
+    throw error.response?.data?.error || "An error occurred during login";
   }
 };
-export { A };
-// const AP_URL = "http://localhost:5000/api/v2";
 
-// export const register = (username, email, password) => {
-//   return axios.post(`${AP_URL}/register`, {
-//     username,
-//     email,
-//     password,
-//   });
-// };
-
-// export const login = (email, password) => {
-//   return axios.post(`${AP_URL}/login`, {
-//     email,
-//     password,
-//   });
-// };
-
-// Add more API calls as needed
+export { API };
 
 export { api };
 
