@@ -74,6 +74,7 @@ import BreakfastCombos from "../components/breakfast"; // Import the BreakfastCo
 import { useState, useEffect } from "react";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./menuitem.css";
 
 const Category = () => {
   const [searchParams] = useSearchParams();

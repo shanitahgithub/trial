@@ -59,7 +59,7 @@ function App() {
                 Home
               </Link>
               <Link className="App-link" to="/about us">
-                About Us
+                About
               </Link>
               <Link className="App-link" to="/menu">
                 Menu
@@ -86,7 +86,7 @@ function App() {
             </Link> */}
 
               <Link className="App-link" to="/contact">
-                Contact Us
+                Contact
               </Link>
 
               {!loggedIn ? (
