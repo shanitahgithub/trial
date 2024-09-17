@@ -243,6 +243,8 @@ const AdminDashboard = () => {
     description: "",
     price: "",
     image: "",
+    category: "",
+    menu_id: 0,
   });
 
   useEffect(() => {
@@ -346,6 +348,8 @@ const AdminDashboard = () => {
         description: "",
         price: "",
         image: "",
+        category: "",
+        menu_id: 0,
       });
     } catch (error) {
       console.error("Error adding item:", error);
