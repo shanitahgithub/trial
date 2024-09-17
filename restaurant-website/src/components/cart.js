@@ -166,7 +166,7 @@ const Cart = () => {
     try {
       setLoading(true);
       setError(""); // Clear previous error
-      setSuccessMessage(""); // Clear previous success message
+      setSuccessMessage("Order placed successfully!"); // Clear previous success message
 
       const orderData = cartItems.map((item) => ({
         restaurant_id: 1,
