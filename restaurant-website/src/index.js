@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
 // Set base URL for Axios
-axios.defaults.baseURL = `${process.env.REACT_APP_BACKEND_URL}/users`; // Replace with your backend URL if different
+axios.defaults.baseURL = "http://localhost:5000/users"; // Replace with your backend URL if different
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
