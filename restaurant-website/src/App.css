@@ -1,16 +1,14 @@
-/* .App {
+.App {
   text-align: center;
 }
 
 .App-header {
-  
   display: flex;
   flex-direction: column;
-  
+
   font-size: 20px;
   color: white;
 }
-
 
 body,
 html,
@@ -32,7 +30,6 @@ body {
   background-color: #f8f9fa;
 }
 
-
 .App-header {
   position: fixed;
   top: 0;
@@ -45,7 +42,6 @@ body {
   background-color: #4f1500;
   z-index: 1000;
   margin: 0;
- 
 }
 
 .Logo {
@@ -64,7 +60,7 @@ body {
   width: auto;
   position: absolute;
   display: flex;
- 
+
   align-items: center;
 }
 
@@ -80,7 +76,6 @@ nav {
   color: #f09226;
 }
 
-
 .App-link {
   color: white;
   text-decoration: none;
@@ -92,11 +87,9 @@ nav {
   color: #f09226;
 }
 
-
 .App {
-  padding-top: 100px; 
+  padding-top: 100px;
 }
-
 
 .hero {
   display: flex;
@@ -116,7 +109,6 @@ nav {
   max-width: 10%;
   border-radius: 10px;
 }
-
 
 .features {
   display: flex;
@@ -147,4 +139,4 @@ nav {
 .App-link:hover,
 .App-link.active-link {
   color: #f09226;
-} */
+}
