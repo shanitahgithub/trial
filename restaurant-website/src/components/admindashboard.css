@@ -165,3 +165,44 @@
     grid-template-columns: 4fr;
   }
 }
+
+
+.admin-dashboard {
+  display: flex;
+}
+
+.toggle-drawer {
+  margin: 10px;
+}
+
+.side-drawer {
+  width: 200px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  position: fixed;
+  top: 0;
+  left: -200px; /* Hidden by default */
+  transition: left 0.3s ease;
+  z-index: 100;
+  padding: 20px;
+}
+
+.side-drawer.open {
+  left: 0; /* Show when open */
+}
+
+.side-drawer button {
+  display: block;
+  margin: 10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.content {
+  margin-left: 220px; /* Space for the drawer */
+  padding: 20px;
+  flex: 1;
+}
+
