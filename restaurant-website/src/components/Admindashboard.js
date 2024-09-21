@@ -237,20 +237,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import PeopleIcon from "@mui/icons-material/People";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./admindashboard.css";
+
+const drawerWidth = 240;
 
 const AdminDashboard = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("menu");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    image: "",
-  });
+  const [activeTab, setActiveTab] = useState("menu"); // State to manage the active tab
+  const [open, setOpen] = useState(false); // For toggling the drawer
 
   useEffect(() => {
     fetchMenuItems();
@@ -259,68 +271,161 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchMenuItems = async () => {
-    // ... existing fetchMenuItems code
+    try {
+      const token = JSON.parse(localStorage.getItem("user")).token;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v2/item_bp/get`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setMenuItems(response.data);
+    } catch (error) {
+      console.error("Error fetching menu items:", error);
+    }
   };
 
   const fetchUsers = async () => {
-    // ... existing fetchUsers code
+    try {
+      const access_token = JSON.parse(
+        localStorage.getItem("user")
+      ).access_token;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v2/users/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   };
 
   const fetchOrders = async () => {
-    // ... existing fetchOrders code
+    try {
+      const access_token = JSON.parse(
+        localStorage.getItem("user")
+      ).access_token;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v2/order1/get-orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      setOrders(response.data.orders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
 
-  const handleDelete = async (itemId) => {
-    // ... existing handleDelete code
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setOpen(false); // Close the drawer after selecting a tab
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (confirmDelete) {
+      try {
+        const token = JSON.parse(localStorage.getItem("user")).token;
+        await axios.delete(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v2/item_bp/delete/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // Update the state to remove the deleted item
+        setMenuItems(menuItems.filter((item) => item.id !== id));
+        alert("Item deleted successfully!");
+      } catch (error) {
+        console.error("Error deleting the item:", error);
+        alert("Failed to delete item.");
+      }
+    }
   };
 
-  const handleSubmit = async (e) => {
-    // ... existing handleSubmit code
-  };
-
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+  const drawer = (
+    <div>
+      <List>
+        <ListItem button onClick={() => handleTabChange("menu")}>
+          <ListItemIcon>
+            <RestaurantMenuIcon />
+          </ListItemIcon>
+          <ListItemText primary="Menu Items" />
+        </ListItem>
+        <ListItem button onClick={() => handleTabChange("users")}>
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Users" />
+        </ListItem>
+        <ListItem button onClick={() => handleTabChange("orders")}>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Orders" />
+        </ListItem>
+      </List>
+    </div>
+  );
 
   return (
-    <div className="admin-dashboard">
-      <h2>Admin Dashboard</h2>
-      <button className="toggle-drawer" onClick={toggleDrawer}>
-        {isDrawerOpen ? "Close Menu" : "Open Menu"}
-      </button>
+    <Box sx={{ display: "flex" }}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={() => setOpen(!open)}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Admin Dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-      <nav className={`side-drawer ${isDrawerOpen ? "open" : ""}`}>
-        <button
-          onClick={() => {
-            setActiveTab("menu");
-            toggleDrawer();
-          }}
-        >
-          Menu Items
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab("users");
-            toggleDrawer();
-          }}
-        >
-          Users
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab("orders");
-            toggleDrawer();
-          }}
-        >
-          Orders
-        </button>
-      </nav>
+      <Drawer
+        variant="persistent"
+        open={open}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
 
-      <main className="content">
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+        {/* Main content changes based on active tab */}
         {activeTab === "menu" && (
           <section>
             <h3>Menu Items</h3>
@@ -421,8 +526,8 @@ const AdminDashboard = () => {
             </table>
           </section>
         )}
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
