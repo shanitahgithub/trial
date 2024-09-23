@@ -237,32 +237,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Box,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import PeopleIcon from "@mui/icons-material/People";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "./admindashboard.css";
-
-const drawerWidth = 240;
 
 const AdminDashboard = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState("menu"); // State to manage the active tab
-  const [open, setOpen] = useState(false); // For toggling the drawer
+  const [activeTab, setActiveTab] = useState("menu");
 
   useEffect(() => {
     fetchMenuItems();
@@ -327,7 +308,6 @@ const AdminDashboard = () => {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setOpen(false); // Close the drawer after selecting a tab
   };
 
   const handleDelete = async (id) => {
@@ -345,7 +325,6 @@ const AdminDashboard = () => {
             },
           }
         );
-        // Update the state to remove the deleted item
         setMenuItems(menuItems.filter((item) => item.id !== id));
         alert("Item deleted successfully!");
       } catch (error) {
@@ -355,77 +334,18 @@ const AdminDashboard = () => {
     }
   };
 
-  const drawer = (
-    <div>
-      <List>
-        <ListItem button onClick={() => handleTabChange("menu")}>
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary="Menu Items" />
-        </ListItem>
-        <ListItem button onClick={() => handleTabChange("users")}>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Users" />
-        </ListItem>
-        <ListItem button onClick={() => handleTabChange("orders")}>
-          <ListItemIcon>
-            <ShoppingCartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Orders" />
-        </ListItem>
-      </List>
-    </div>
-  );
-
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={() => setOpen(!open)}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Admin Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div className="dashboard-container">
+      <nav className="sidebar">
+        <ul>
+          <li onClick={() => handleTabChange("menu")}>Menu Items</li>
+          <li onClick={() => handleTabChange("users")}>Users</li>
+          <li onClick={() => handleTabChange("orders")}>Orders</li>
+        </ul>
+      </nav>
 
-      <Drawer
-        variant="persistent"
-        open={open}
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        {/* Main content changes based on active tab */}
+      <main className="main-content">
+        <h1 class="side">Admin Dashboard</h1>
         {activeTab === "menu" && (
           <section>
             <h3>Menu Items</h3>
@@ -465,7 +385,7 @@ const AdminDashboard = () => {
 
         {activeTab === "users" && (
           <section>
-            <h3>All Users</h3>
+            <h3 class="side">All Users</h3>
             <table className="users-table">
               <thead>
                 <tr>
@@ -493,18 +413,18 @@ const AdminDashboard = () => {
 
         {activeTab === "orders" && (
           <section>
-            <h3>All Orders</h3>
+            <h3 class="side">All Orders</h3>
             <table className="orders-table">
               <thead>
                 <tr>
                   <th>Order ID</th>
-                  <th>RestaurantId</th>
-                  <th>ItemId</th>
-                  <th>UserId</th>
+                  <th>Restaurant ID</th>
+                  <th>Item ID</th>
+                  <th>User ID</th>
                   <th>Quantity</th>
                   <th>Total Amount</th>
                   <th>Status</th>
-                  <th>Delivery Information</th>
+                  <th>Delivery Info</th>
                   <th>Date</th>
                 </tr>
               </thead>
@@ -526,8 +446,8 @@ const AdminDashboard = () => {
             </table>
           </section>
         )}
-      </Box>
-    </Box>
+      </main>
+    </div>
   );
 };
 
