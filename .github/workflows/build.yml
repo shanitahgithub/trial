@@ -54,7 +54,7 @@ jobs:
           context: ./restaurant-website
           file: ./restaurant-website/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/witu:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/project:latest
 
       - name: Log out of Docker Hub
         run: docker logout
