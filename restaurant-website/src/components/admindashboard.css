@@ -1,5 +1,4 @@
-/* admindashboard.css */
-.admin-dashboard {
+/* .admin-dashboard {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
   background-color: #f9f9f9;
@@ -149,7 +148,6 @@
   background-color: #ddd;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .admin-dashboard .dashboard-tabs {
     flex-direction: row;
@@ -180,14 +178,14 @@
   background-color: #f8f9fa;
   position: fixed;
   top: 0;
-  left: -200px; /* Hidden by default */
+  left: -200px;
   transition: left 0.3s ease;
   z-index: 100;
   padding: 20px;
 }
 
 .side-drawer.open {
-  left: 0; /* Show when open */
+  left: 0;
 }
 
 .side-drawer button {
@@ -200,10 +198,10 @@
 }
 
 .content {
-  margin-left: 220px; /* Space for the drawer */
+  margin-left: 220px;
   padding: 20px;
   flex: 1;
-}
+} */
 
 .admin-dashboard {
   font-family: Arial, sans-serif;
@@ -497,13 +495,13 @@ h3 {
 }
 
 /* Tables */
-/* table {
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-} */
+}
 
-/* th,
+th,
 td {
   padding: 12px;
   text-align: left;
@@ -518,4 +516,3 @@ th {
 tbody tr:hover {
   background-color: #f4f4f4;
 }
- */

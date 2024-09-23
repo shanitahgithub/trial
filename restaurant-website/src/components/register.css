@@ -8,7 +8,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   height: auto; /* Adjust height to fit content */
   align-items: center;
-  background-image: url(https://img.freepik.com/free-photo/serving-platter-with-grilled-chicken-pieces-topped-with-sauce_140725-8666.jpg?uid=R154560202&ga=GA1.2.1739364239.1719926120&semt=ais_user);
+  background-image: url("https://img.freepik.com/free-photo/serving-platter-with-grilled-chicken-pieces-topped-with-sauce_140725-8666.jpg?uid=R154560202&ga=GA1.2.1739364239.1719926120&semt=ais_user");
   background-size: cover;
   background-repeat: no-repeat;
   /* Center-align the items vertically */
